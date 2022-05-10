@@ -1,6 +1,6 @@
 <div>
 
-    <form class="content"  >
+    <form class="content"  (submit)="consultaDocente()" >
 
 
     <div class="submit-form" >
@@ -19,6 +19,14 @@
                 <label for="dni" class="col-lg-1">DNI</label>
                 <div class="col-lg-2">
                     <input type="text" class="form-control" name="dni" id="dni"  [(ngModel)]= "dni" />
+                </div>
+                <label for="esatdo">Estado</label>
+                <div class="col-lg-2">
+                    <label class="switch">
+                        <input type="checkbox" name="esatdo" id="esatdo" [(ngModel)]= "estado" >
+                        <span class="slider round"></span>
+                      </label>
+
                 </div>
                 <div class="col-lg-2">
                     <button class="btn btn-success"  >Filtrar</button>
@@ -68,10 +76,18 @@
                             <th>Nombre</th>
                             <th>DNI</th>
                             <th>Ubigeo</th>
+                            <th>Estado</th>
                         </tr>
                     </thead>
                     <tbody>
-                            
+                        <tr *ngFor="let item of docentes">
+                            <td><p class="font-weight-bold">{{item.idDocente}}</p></td>
+                            <td>{{item.nombre}}</td>
+                            <td>{{item.dni}}</td>
+                            <td>{{item.ubigeo?.departamento}} - {{item.ubigeo?.provincia}} - {{item.ubigeo?.distrito}}</td>
+                            <td *ngIf="item.estado==1"><p class="text-success font-weight-bold">Activo</p></td>
+                            <td *ngIf="item.estado==0"><p class="text-danger font-weight-bold">InActivo</p></td>
+                        </tr>
 
                     </tbody>
                        

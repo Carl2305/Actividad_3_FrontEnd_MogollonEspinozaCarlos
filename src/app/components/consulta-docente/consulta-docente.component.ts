@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Docente } from 'src/app/models/docente.model';
 import { Ubigeo } from 'src/app/models/ubigeo.model';
 import { DocenteService } from 'src/app/services/docente.service';
@@ -14,6 +15,7 @@ export class ConsultaDocenteComponent implements OnInit {
   //Ng model
   nombre:string="";
   dni:string="";
+  estado:boolean=false;
   selDepartamento:string = "-1"; 
   selProvincia:string = "-1"; 
   selDistrito:number = -1;
@@ -46,6 +48,18 @@ export class ConsultaDocenteComponent implements OnInit {
             (x)  => this.distritos = x      
       );
       this.selDistrito = -1;
+  }
+
+  consultaDocente(){
+    let est:number=(this.estado==true)? 1: 0;
+
+    this.docenteService.listaDocente(this.nombre!, this.dni!, this.selDistrito, est).subscribe(resp=>{
+      this.docentes=resp.data!;
+      console.log(this.docentes);
+      
+    }, error=>{
+      console.log(error);
+    })
   }
 
 

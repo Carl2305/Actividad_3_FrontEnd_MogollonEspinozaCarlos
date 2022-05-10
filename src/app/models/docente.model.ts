@@ -6,6 +6,6 @@ export class Docente {
     nombre?:string;
     dni?:string;
     ubigeo?:Ubigeo;
-
+    estado?:number;
 
 }
